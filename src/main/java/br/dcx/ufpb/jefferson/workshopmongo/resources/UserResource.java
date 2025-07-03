@@ -42,4 +42,11 @@ public class UserResource {
         //created retorna 201, que é o codigo de resposta HTTP para novo recurso
         return ResponseEntity.created(uri).build();
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable String id){
+        userService.delete(id);
+        //operação que retorna nada. O código HTTP para isso é o 204, o .noContent() do ResponseEntity já volta um 204
+        return ResponseEntity.noContent().build();
+    }
 }

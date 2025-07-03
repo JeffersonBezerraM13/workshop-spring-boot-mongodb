@@ -28,6 +28,11 @@ public class UserService {
         return userRepository.insert(user);
     }
 
+    public void delete(String id){
+        this.findById(id); //verificando se já existe, e já aproveitando o código com tratamento de exceções
+        userRepository.deleteById(id);
+    }
+
     public User fromDTO(UserDTO userDto) {
         return new User(userDto.getId(),userDto.getName(),userDto.getEmail());
 
