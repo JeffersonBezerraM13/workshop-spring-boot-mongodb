@@ -28,6 +28,17 @@ public class UserService {
         return userRepository.insert(user);
     }
 
+    public User update(User obj) {
+        User newObj = userRepository.findById(obj.getId()).orElseThrow(() -> new ObjectNotFoundExeception(obj.getId()));
+        updateData(newObj, obj);
+        return userRepository.save(newObj);
+    }
+
+    private void updateData(User user, User userUpdate) {
+        user.setName(userUpdate.getName());
+        user.setEmail(userUpdate.getEmail());
+    }
+
     public void delete(String id){
         this.findById(id); //verificando se já existe, e já aproveitando o código com tratamento de exceções
         userRepository.deleteById(id);
