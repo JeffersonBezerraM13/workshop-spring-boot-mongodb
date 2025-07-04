@@ -59,6 +59,7 @@ public class UserResource {
         return ResponseEntity.noContent().build();
     }
 
+    //esse metodo, mesmo que tenha a ver com os posts, o modelo diz que os posts estão relacionados com o usuario com referenia e o seu carregamento é lazy (tardío)
     @RequestMapping(value ="/{id}/posts",method= RequestMethod.GET)
     public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
         //retornando a lista de posts que está associaodo aos usuarios
