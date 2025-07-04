@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.TimeZone;
 
 /**
- * Carga inicial do banco
+ * Carga inicial do banco de dados
  */
 @Configuration
 public class Instatiation implements CommandLineRunner {

@@ -3,6 +3,7 @@ package br.dcx.ufpb.jefferson.workshopmongo.resources;
 import br.dcx.ufpb.jefferson.workshopmongo.domain.Post;
 import br.dcx.ufpb.jefferson.workshopmongo.domain.User;
 import br.dcx.ufpb.jefferson.workshopmongo.dto.UserDTO;
+import br.dcx.ufpb.jefferson.workshopmongo.resources.util.URL;
 import br.dcx.ufpb.jefferson.workshopmongo.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,5 +24,12 @@ public class PostResource {
     @RequestMapping(value = "/{id}",method= RequestMethod.GET)
     public ResponseEntity<Post> findById(@PathVariable String id){
         return ResponseEntity.ok().body(postService.findById(id));
+    }
+
+    @RequestMapping(value="/titlesearch",method= RequestMethod.GET)
+    public ResponseEntity<List<Post>> findByTitle(@RequestParam(value="text",defaultValue="") String text){
+        text = URL.decodeParam(text);
+        List<Post> list = postService.findByTitleContaining(text);
+        return ResponseEntity.ok().body(list);
     }
 }
