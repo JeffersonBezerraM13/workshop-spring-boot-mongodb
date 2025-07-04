@@ -2,6 +2,7 @@ package br.dcx.ufpb.jefferson.workshopmongo.config;
 
 import br.dcx.ufpb.jefferson.workshopmongo.domain.Post;
 import br.dcx.ufpb.jefferson.workshopmongo.domain.User;
+import br.dcx.ufpb.jefferson.workshopmongo.dto.AuthorDTO;
 import br.dcx.ufpb.jefferson.workshopmongo.repository.PostRepository;
 import br.dcx.ufpb.jefferson.workshopmongo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +28,15 @@ public class Instatiation implements CommandLineRunner {
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 
         userRepository.deleteAll();
+        postRepository.deleteAll();
+
         User maria = new User(null, "Ana Pink", "maria@gmail.com");
         User alex = new User(null, "Alan Yellow", "alex@gmail.com");
         User bob = new User(null, "Bob Grey", "bob@gmail.com");
         userRepository.saveAll(Arrays.asList(maria,alex,bob));
 
-        postRepository.deleteAll();
-        Post post1 = new Post(null, sdf.parse("21/03/2018"),"Partiu Viagem!","Vou viajar para São Paulo",maria);
-        Post post2 = new Post(null, sdf.parse("21/03/2018"),"Bom dia","Acordei feliz hoje!",maria);
+        Post post1 = new Post(null, sdf.parse("21/03/2018"),"Partiu Viagem!","Vou viajar para São Paulo",new AuthorDTO(maria));
+        Post post2 = new Post(null, sdf.parse("21/03/2018"),"Bom dia","Acordei feliz hoje!", new AuthorDTO(maria));
         postRepository.saveAll(Arrays.asList(post1,post2));
     }
 }
