@@ -1,5 +1,6 @@
 package br.dcx.ufpb.jefferson.workshopmongo.resources;
 
+import br.dcx.ufpb.jefferson.workshopmongo.domain.Post;
 import br.dcx.ufpb.jefferson.workshopmongo.domain.User;
 import br.dcx.ufpb.jefferson.workshopmongo.dto.UserDTO;
 import br.dcx.ufpb.jefferson.workshopmongo.services.UserService;
@@ -56,5 +57,12 @@ public class UserResource {
         userService.delete(id);
         //operação que retorna nada. O código HTTP para isso é o 204, o .noContent() do ResponseEntity já volta um 204
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value ="/{id}/posts",method= RequestMethod.GET)
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+        //retornando a lista de posts que está associaodo aos usuarios
+        //usuarios tem post (uma referencia e o carregamento é tardio - lazy = true) mas quando puxar o .getPost() no usuario ele carrega os posts
+        return ResponseEntity.ok().body(userService.findById(id).getPosts());
     }
 }
