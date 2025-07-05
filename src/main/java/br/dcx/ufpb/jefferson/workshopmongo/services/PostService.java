@@ -6,6 +6,7 @@ import br.dcx.ufpb.jefferson.workshopmongo.services.exception.ObjectNotFoundExec
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,5 +22,11 @@ public class PostService {
 
     public List<Post> findByTitleContaining(String text) {
         return postRepository.searchTitle(text);
+    }
+
+    public List<Post> fullSearch(String text, Date minDate, Date maxDate){
+        //olhando para as 24 h daquele dia
+        maxDate = new Date(maxDate.getTime() + 24 * 60 * 60 * 1000);
+        return postRepository.fullSearch(text, minDate, maxDate);
     }
 }
